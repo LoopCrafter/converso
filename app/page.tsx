@@ -1,11 +1,12 @@
-import { CompanionCard } from "@/components/shared";
+import { CompanionCard, CompanionsList } from "@/components/shared";
+import { recentSessions } from "@/constants";
 import React from "react";
 
 const Page = () => {
   return (
     <main>
       <h1>Popular Companions</h1>
-      <div className="home-section">
+      <section className="home-section">
         <CompanionCard
           id={123}
           subject="Science"
@@ -30,7 +31,14 @@ const Page = () => {
           duration={30}
           color="#BDE7FF"
         />
-      </div>
+      </section>
+      <section className="home-section">
+        <CompanionsList
+          title="Recently completed lessons"
+          companions={recentSessions}
+          className="w-2/3 max-lg:w-full"
+        />
+      </section>
     </main>
   );
 };
