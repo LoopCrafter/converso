@@ -17,7 +17,7 @@ export const CTA = () => {
       <Image src="images/cta.svg" alt="cta" width={362} height={232} />
       <Button className="btn-primary w-full text-center flex justify-center items-center">
         <Plus />
-        <Link href="companion/new">Build New Companion</Link>
+        <Link href="companions/new">Build New Companion</Link>
       </Button>
     </section>
   );
