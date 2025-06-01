@@ -1,4 +1,5 @@
 "use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -22,6 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { subjects } from "@/constants";
 import { Textarea } from "@/components/ui/textarea";
+import { redirect } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Companion is required." }),
@@ -46,8 +48,19 @@ export const CompanionForm = () => {
     },
   });
 
-  const onSubmit = (values: Form) => {
-    console.log(values);
+  const onSubmit = async (values: Form) => {
+    const res = await fetch("/api/companions", {
+      method: "POST",
+      body: JSON.stringify(values),
+    });
+    debugger;
+    if (!res.ok) {
+      console.log("Failed to create a Companion");
+      //return redirect("/");
+    }
+
+    const companion = await res.json();
+    //redirect(`/companions/${companion.id}`);
   };
   return (
     <Form {...form}>
