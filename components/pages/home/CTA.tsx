@@ -15,10 +15,12 @@ export const CTA = () => {
         voice conversations that feel natural and fun.
       </p>
       <Image src="images/cta.svg" alt="cta" width={362} height={232} />
-      <Button className="btn-primary w-full text-center flex justify-center items-center">
-        <Plus />
-        <Link href="companions/new">Build New Companion</Link>
-      </Button>
+      <Link href="companions/new" className="w-full">
+        <Button className="btn-primary w-full text-center flex justify-center items-center">
+          <Plus />
+          Build New Companion
+        </Button>
+      </Link>
     </section>
   );
 };

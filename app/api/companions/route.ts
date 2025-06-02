@@ -13,12 +13,15 @@ export async function POST(req: Request) {
   const body = await req.json();
 
   const { data, error } = await supabase
-    .from("Companions")
-    .insert([{ ...body, author: userId }]);
+    .from<Companion, Companion>("companions")
+    .insert([{ ...body, author: userId }])
+    .select();
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ data });
+  return NextResponse.json({
+    data: data && data.length > 0 ? data[0] : null,
+  });
 }

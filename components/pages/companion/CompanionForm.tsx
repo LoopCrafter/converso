@@ -53,14 +53,13 @@ export const CompanionForm = () => {
       method: "POST",
       body: JSON.stringify(values),
     });
-    debugger;
     if (!res.ok) {
       console.log("Failed to create a Companion");
-      //return redirect("/");
+      return redirect("/");
     }
 
-    const companion = await res.json();
-    //redirect(`/companions/${companion.id}`);
+    const { data } = await res.json();
+    redirect(`/companions/${data?.id}`);
   };
   return (
     <Form {...form}>
