@@ -28,3 +28,16 @@ export const getAllCompanions = async ({
 
   return companions;
 };
+
+export const getCompanionById = async (id: string) => {
+  const supabase = await createSupabaseClient();
+  const { data, error } = await supabase
+    .from("companions")
+    .select()
+    .eq("id", id);
+  if (error) {
+    console.log(error);
+  }
+
+  return data?.[0];
+};
