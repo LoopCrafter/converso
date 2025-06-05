@@ -7,7 +7,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { subjects } from "@/constants";
-import { formUrlQuery, removeKeysFromUrlQuery } from "@jsmastery/utils";
+import { formUrlQuery, removeKeysFromUrlQuery } from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 

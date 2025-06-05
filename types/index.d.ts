@@ -80,3 +80,14 @@ interface CompanionComponentProps {
   voice: string;
   style: string;
 }
+
+interface FormUrlQueryParams {
+  params: string;
+  key: string;
+  value: string;
+}
+
+interface RemoveKeysFromUrlQueryProps {
+  params: string;
+  keysToRemove: string[];
+}
