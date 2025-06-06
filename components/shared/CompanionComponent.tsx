@@ -7,6 +7,7 @@ import Image from "next/image";
 import { FC, useEffect, useRef, useState } from "react";
 import soundwaves from "@/constants/soundwaves.json";
 import { Mic, MicOff } from "lucide-react";
+import { addToSessionHistory } from "@/lib/actions/companion.actions";
 enum CallStatus {
   INACTIVE = "INACTIVE",
   CONNECTING = "CONNECTING",
@@ -23,6 +24,7 @@ const CompanionComponent: FC<CompanionComponentProps> = ({
   voice,
   userImage,
   userName,
+  userId,
 }) => {
   const lottieRef = useRef<LottieRefCurrentProps>(null);
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
@@ -38,7 +40,10 @@ const CompanionComponent: FC<CompanionComponentProps> = ({
 
   useEffect(() => {
     const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
-    const onCallEnd = () => setCallStatus(CallStatus.FINISHED);
+    const onCallEnd = async () => {
+      setCallStatus(CallStatus.FINISHED);
+      await addToSessionHistory(userId, companionId);
+    };
 
     const onMessage = (message: Message) => {
       if (message.type === "transcript" && message.transcriptType === "final") {
