@@ -1,7 +1,10 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-const isPrivateRoute = createRouteMatcher(["/companions/:path*"]);
+const isPrivateRoute = createRouteMatcher([
+  "/companions/:path*",
+  "/my-journey",
+]);
 
 export default clerkMiddleware(async (auth, req) => {
   if (isPrivateRoute(req)) {

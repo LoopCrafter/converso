@@ -8,6 +8,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import soundwaves from "@/constants/soundwaves.json";
 import { Mic, MicOff } from "lucide-react";
 import { addToSessionHistory } from "@/lib/actions/companion.actions";
+import { redirect } from "next/navigation";
 enum CallStatus {
   INACTIVE = "INACTIVE",
   CONNECTING = "CONNECTING",
@@ -43,6 +44,7 @@ const CompanionComponent: FC<CompanionComponentProps> = ({
     const onCallEnd = async () => {
       setCallStatus(CallStatus.FINISHED);
       await addToSessionHistory(userId, companionId);
+      redirect("/");
     };
 
     const onMessage = (message: Message) => {

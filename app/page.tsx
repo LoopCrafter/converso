@@ -2,16 +2,14 @@ import { CTA } from "@/components/pages";
 import { CompanionCard, CompanionsList } from "@/components/shared";
 import {
   getAllCompanions,
-  getRecentSession,
+  getRecentSessions,
 } from "@/lib/actions/companion.actions";
 import { getSubjectColor } from "@/lib/utils";
-import { auth } from "@clerk/nextjs/server";
 import React from "react";
 
 const HomePage = async () => {
-  const { userId } = await auth();
   const companions = await getAllCompanions({ limit: 3 });
-  const recentSessionsCompanions = await getRecentSession(10);
+  const recentSessionsCompanions = await getRecentSessions(10);
   return (
     <main>
       <h1>Popular Companions</h1>
