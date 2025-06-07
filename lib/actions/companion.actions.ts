@@ -1,4 +1,5 @@
 "use server";
+import { auth } from "@clerk/nextjs/server";
 import { createSupabaseClient } from "../supabase";
 
 export const getAllCompanions = async ({
@@ -87,4 +88,30 @@ export const getUserCompanions = async (userId: string) => {
   if (error) throw new Error(error.message);
 
   return data;
+};
+
+export const newCompanionPermissions = async () => {
+  const { userId, has } = await auth();
+
+  let limit = 0;
+  if (has({ plan: "pro" })) {
+    return true;
+  } else if (has({ feature: "3_companion_limit" })) {
+    limit = 3;
+  } else if (has({ feature: "10_companion_limit" })) {
+    limit = 5;
+  }
+  const supabase = await createSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("companions")
+    .select("id", { count: "exact" })
+    .eq("author", userId);
+
+  if (error) throw new Error(error.message);
+  const companionsCount = data?.length;
+  if (companionsCount >= limit) {
+    return false;
+  }
+  return true;
 };
